@@ -9,3 +9,4 @@ This suite consists of eight nested codes of different fidelities (see the possi
 
 ![suite of codes flowchart](/docs/codesuite.png)
 
+![code dependency](/docs/HydroSuiteCodeDependencyGraph.png)
