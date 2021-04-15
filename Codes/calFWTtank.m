@@ -1,3 +1,5 @@
+function ModPar = calFWTtank (wavetype, calcType)
+
 % This list below is prepared for simulation of hydrodynamic response of a
 % floating spar (representing Hywind floating wind turbine -FWT) in a wave
 % tank environment 
@@ -12,8 +14,8 @@ ModPar = struct ( ...
      ... ---------------------------------------------------------------
      ... % options to control    
      ... --------------------------------------------------------------- 
-         'wavetype'   ,  2 ,                ...   % choose wave type, regular == 1, random == 2
-         'calcType' ,    2 ,                ...   % choose freuqency == 1 or time == 2
+         'wavetype'   ,  wavetype ,                ...   % choose wave type, regular == 1, random == 2
+         'calcType' ,    calcType ,                ...   % choose freuqency == 1 or time == 2
      ... % calculation parameters
          'om_range'  ,  (0.1:0.05:2)*2*pi,      ...   % choose frequency range (this only controls harmonic wave)
          'tmax'      ,   1/0.1*5,        ...     
