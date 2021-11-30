@@ -48,8 +48,8 @@ function [H, Hq] = solve4frf(s_geo_v, s_mech, mk, mode, wave, options)
     % define intial vectors
     k_w = om_v.^2/g;  % wavenumber (based on linear wave theory)
 
-    u_i_v = 1i*om_v.*aw.*exp(-xi_v*k_w);  % fluid velocity, matrix format, N x Nom
-    u_i_dot_v = -om_v.^2.*aw.*exp(-xi_v*k_w); % fluid acceleration,  N x Nom
+    u_i_v = om_v.*aw.*exp(-xi_v*k_w);  % fluid velocity, matrix format, N x Nom
+    u_i_dot_v = 1i*om_v.^2.*aw.*exp(-xi_v*k_w); % fluid acceleration,  N x Nom
 
     u_i_v(xi_v<0,:) = 0;
     u_i_dot_v(xi_v<0,:) = 0;

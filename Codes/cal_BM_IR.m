@@ -52,8 +52,8 @@ function BM_IR = cal_BM_IR(s_geo_v, s_mech, wave, theta, theta2, response, optio
         % wave velocity        
         k_w = om_range.^2/g;  % wavenumber (based on linear wave theory)
 
-        u_v     = 1i*om_range.*aw.*exp(-xi_v*k_w);  % fluid velocity, matrix format, N x Nom
-        u_v_dot = -om_range.^2.*aw.*exp(-xi_v*k_w); % fluid acceleration,  N x Nom
+        u_v     = om_range.*aw.*exp(-xi_v*k_w);  % fluid velocity, matrix format, N x Nom
+        u_v_dot = 1i*om_range.^2.*aw.*exp(-xi_v*k_w); % fluid acceleration,  N x Nom
 
         u_v(xi_v<0,:) = 0;
         u_v_dot(xi_v<0,:) = 0;
