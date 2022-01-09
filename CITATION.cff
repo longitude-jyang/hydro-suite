@@ -4,7 +4,7 @@ authors:
   - family-names: Yang
     given-names: Jiannan
     orcid: https://orcid.org/0000-0001-8323-7406
-title: "Hydro-suite"
+title: "Code for Hydrodynamic Analysis of Offshore Structures (CHAOS)"
 version: 1.0.0
 doi: 10.5281/zenodo.5831833
 date-released: 2022-01-10
