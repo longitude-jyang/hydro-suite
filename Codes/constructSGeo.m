@@ -22,6 +22,8 @@ function s_geo_v = constructSGeo(s_geo, s_mech,options)
 
 % 07/07/2020 @ Franklin Court, Cambridge  [J Yang] 
 % 09/04/2021 @ Franklin Court,, Cambridge  [J Yang]  --> code checked
+% 18/01/2022 @ Franklin Court,, Cambridge  [J Yang]  --> add output for
+% Bi_v (for Ca=1, Mia_v = Bi_v, but in random version, it is different)
 
     isModelTest = options.isModelTest;
 
@@ -42,6 +44,8 @@ function s_geo_v = constructSGeo(s_geo, s_mech,options)
     Mi_v    = zeros(N,1); 
     % vector for added mass (the ones above fluid surface will be zeros
     Mia_v   = zeros(N,1); 
+    % vector for buyancy
+    Bi_v    = zeros(N,1);
     % vector for 2nd moment of area
     Ii_v    = zeros(N,1); 
     
@@ -107,6 +111,7 @@ function s_geo_v = constructSGeo(s_geo, s_mech,options)
             % put them into vector form
             Mi_v(ii)     = Mi;
             Mia_v(ii)    = Mia;
+            Bi_v(ii)     = Bi;
 
             Ii_v(ii)     = Ii;
             Li_v(ii)     = Li;
@@ -120,24 +125,27 @@ function s_geo_v = constructSGeo(s_geo, s_mech,options)
     xi_v            = xi_v-L1;
     
     % no fluid above fluid surface
-    Mia_v(xi_v<0)   = 0;                   
+    Mia_v(xi_v<0)   = 0;   
+    Bi_v(xi_v<0)    = 0;  
 
+    if isModelTest == 1 
+        mb   = s_geo.mb;
+        L_b  = s_geo.L_b;
+        d    = s_geo.d;
+        L_S  = s_geo.L(2);
+        
+        [~, mb_index] = min(abs(xi_v - ((d - L_S) - L_b)));
+        
+        Mi_v (mb_index) = Mi_v(mb_index) + mb;
+        
+    end
+    
     % get centre of gravity , centre of buoyancy
     xc              = sum(Mi_v.*xi_v)/sum(Mi_v); 
     xcb             = sum(Mia_v.*xi_v)/sum(Mia_v); 
 
     % coor for spring (dummy spring?) 
-    xm              = xi_v(end-3);               
-
-    if isModelTest == 1 
-        mb   = s_geo.mb;
-        L_b  = s_geo.L_b;
-        
-        [~, mb_index] = min(abs(xi_v - (0.8 - L_b)));
-        
-        Mi_v (mb_index) = Mi_v(mb_index) + mb;
-        
-    end
+    xm              = xi_v(end-3);          
     
     
     %-------------------------------------------------------------------------
@@ -150,6 +158,7 @@ function s_geo_v = constructSGeo(s_geo, s_mech,options)
     s_geo_v.D       = [Di_v_I Di_v_out Di_v];
     s_geo_v.m       = Mi_v;
     s_geo_v.ma      = Mia_v;
+    s_geo_v.Bi      = Bi_v;
     s_geo_v.xc      = xc;
     s_geo_v.xcb     = xcb;
     s_geo_v.xm      = xm;

@@ -3,6 +3,8 @@ function [mk, mode] = constructMK(s_geo, s_geo_v, s_mech, options)
 
 % 07/07/2020 @ Franklin Court, Cambridge  [J Yang] 
 % 09/04/2021 @ Franklin Court,, Cambridge  [J Yang]  --> code checked
+% 18/01/2022 @ Franklin Court,, Cambridge  [J Yang]  --> use Bi_v, instead
+% of Mia_v for Mi_t_3 
 
     % assign values 
     Struct_type = options.Struct_type;
@@ -24,6 +26,7 @@ function [mk, mode] = constructMK(s_geo, s_geo_v, s_mech, options)
 
     Mi_v        = s_geo_v.m;
     Mia_v       = s_geo_v.ma;
+    Bi_v        = s_geo_v.Bi;
 
     Ii_v        = s_geo_v.I;
 
@@ -52,7 +55,7 @@ function [mk, mode] = constructMK(s_geo, s_geo_v, s_mech, options)
     %-------------------------------------------------------------------------
 
     % use this discretised version if non-unform
-    Mi_t_3      = sum(triu(repmat((Mi_v-Mia_v),1,N))); 
+    Mi_t_3      = sum(triu(repmat((Mi_v-Bi_v),1,N))); 
     Mi_i2N      = diag(T0-Mi_t_3*g);
 
     %  bending contribution
