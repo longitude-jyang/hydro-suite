@@ -4,7 +4,7 @@ function [mk, mode] = constructMK(s_geo, s_geo_v, s_mech, options)
 % 07/07/2020 @ Franklin Court, Cambridge  [J Yang] 
 % 09/04/2021 @ Franklin Court,, Cambridge  [J Yang]  --> code checked
 % 18/01/2022 @ Franklin Court,, Cambridge  [J Yang]  --> use Bi_v, instead
-% of Mia_v for Mi_t_3 
+% of Mia_v for Mi_t_3  
 
     % assign values 
     Struct_type = options.Struct_type;
